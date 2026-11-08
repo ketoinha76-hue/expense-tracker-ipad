@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Quản Lý Thu Chi",
+    "slug": "expense-tracker-ipad",
+    "version": "1.0.0",
+    "orientation": "default",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.huynh.expensetracker",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.huynh.expensetracker",
+      "adaptiveIcon": {
+        "backgroundColor": "#2563EB",
+        "foregroundImage": "./assets/icon.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0e3b115f-047b-4ac3-8614-fdb6d7c1af7d"
+      }
+    },
+    "owner": "huynhbalonghlv"
+  }
+}
