@@ -33,14 +33,14 @@ jobs:
         run: |
           cd ios
           WORKSPACE=$(ls -d *.xcworkspace | head -n 1)
-          SCHEME=$(xcodebuild -workspace "$WORKSPACE" -list -json | python3 -c "import sys, json; data=json.load(sys.stdin); print(data['workspace']['schemes'][0])")
-          echo "Building scheme: $SCHEME from workspace: $WORKSPACE"
+          SCHEME=$(basename "$WORKSPACE" .xcworkspace)
+          echo "Building main scheme: $SCHEME from workspace: $WORKSPACE"
           
           xcodebuild -workspace "$WORKSPACE" \
             -scheme "$SCHEME" \
             -configuration Release \
             -destination 'generic/platform=iOS' \
-            -archivePath ../build/App.xcarchive \
+            -archivePath "$PWD/../build/App.xcarchive" \
             archive \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
@@ -50,7 +50,9 @@ jobs:
       - name: Package into .ipa
         run: |
           mkdir -p build/Payload
-          cp -R build/App.xcarchive/Products/Applications/*.app build/Payload/
+          APP_PATH=$(find build -name "*.app" | head -n 1)
+          echo "Found app at: $APP_PATH"
+          cp -R "$APP_PATH" build/Payload/
           cd build
           zip -r QuanLyThuChi.ipa Payload
           ls -lh QuanLyThuChi.ipa
